@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Webex Messenger Demo</title>
+
+    <!-- Include the compiled CSS -->
+    <link rel="stylesheet" href="/build/assets/app.css">
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold text-gray-900 mb-4">Webex Messenger Demo</h1>
+        <p class="text-gray-600 mb-8">
+            This page demonstrates the Webex Messenger widget.
+            The messenger should appear as a floating button in the bottom-right corner.
+        </p>
+
+        <div class="bg-white rounded-lg shadow p-6 mb-6">
+            <h2 class="text-xl font-semibold mb-4">Features</h2>
+            <ul class="list-disc list-inside space-y-2 text-gray-700">
+                <li>Real-time messaging with WebSocket support</li>
+                <li>Minimizable widget interface</li>
+                <li>Mobile responsive design</li>
+                <li>Conversation list with search</li>
+                <li>Message status indicators (queued, delivered, failed)</li>
+                <li>Unread message badges</li>
+                <li>Auto-scroll to latest messages</li>
+                <li>Pagination for message history</li>
+            </ul>
+        </div>
+
+        <div class="bg-white rounded-lg shadow p-6">
+            <h2 class="text-xl font-semibold mb-4">Integration Instructions</h2>
+            <p class="text-gray-700 mb-4">
+                To integrate the messenger widget into your application, see the example code below.
+            </p>
+
+            <pre class="bg-gray-900 text-gray-100 p-4 rounded overflow-x-auto"><code>&lt;!-- Add to your HTML --&gt;
+&lt;div id="messenger-app"&gt;&lt;/div&gt;
+
+&lt;!-- Include scripts --&gt;
+&lt;script src="/build/assets/app.js" type="module"&gt;&lt;/script&gt;
+
+&lt;script type="module"&gt;
+  import { MessengerWidget } from '/build/assets/app.js';
+  import Vue from 'vue';
+
+  new Vue({
+    el: '#messenger-app',
+    components: { MessengerWidget },
+    template: `
+      &lt;MessengerWidget
+        :token="authToken"
+        :pusher-config="pusherConfig"
+        :minimized="true"
+        @toggle="handleToggle"
+      /&gt;
+    `,
+    data() {
+      return {
+        authToken: 'your-bearer-token-here',
+        pusherConfig: {
+          key: 'your-pusher-key',
+          cluster: 'eu'
+        }
+      };
+    },
+    methods: {
+      handleToggle(isMinimized) {
+        console.log('Widget toggled:', isMinimized);
+      }
+    }
+  });
+&lt;/script&gt;</code></pre>
+        </div>
+    </div>
+
+    <!-- Messenger Widget App -->
+    <div id="messenger-app"></div>
+
+    <!-- Include the compiled JavaScript -->
+    <script src="/build/assets/app.js" type="module"></script>
+
+    <!-- Initialize the widget -->
+    <script type="module">
+        import { MessengerWidget } from '/build/assets/app.js';
+        import Vue from 'vue';
+
+        // Initialize the messenger widget
+        new Vue({
+            el: '#messenger-app',
+            components: { MessengerWidget },
+            template: `
+                <MessengerWidget
+                    :token="authToken"
+                    :pusher-config="pusherConfig"
+                    :minimized="true"
+                    @toggle="handleToggle"
+                />
+            `,
+            data() {
+                return {
+                    // Replace with your actual auth token
+                    authToken: localStorage.getItem('auth_token') || 'demo-token',
+
+                    // Pusher configuration
+                    pusherConfig: {
+                        key: process.env.VUE_APP_PUSHER_KEY || 'your-pusher-key',
+                        cluster: process.env.VUE_APP_PUSHER_CLUSTER || 'eu'
+                    }
+                };
+            },
+            methods: {
+                handleToggle(isMinimized) {
+                    console.log('Messenger widget toggled:', isMinimized ? 'minimized' : 'expanded');
+                }
+            },
+            mounted() {
+                console.log('Webex Messenger Widget initialized');
+            }
+        });
+    </script>
+</body>
+</html>

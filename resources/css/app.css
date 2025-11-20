@@ -1,0 +1,28 @@
+/**
+ * Webex Messenger Styles
+ */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom base styles */
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    @apply antialiased;
+  }
+}
+
+/* Custom component styles */
+@layer components {
+  /* Add any custom component styles here */
+}
+
+/* Custom utility styles */
+@layer utilities {
+  /* Add any custom utility styles here */
+}
